@@ -1,0 +1,868 @@
+{
+  "info": {
+    "name": "HTTP Playground Server API Tests",
+    "description": "Comprehensive API tests for the HTTP Playground Server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Index Route",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": ["{{baseUrl}}"],
+          "path": [""]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has no body', function () {",
+              "    pm.expect(pm.response.text()).to.equal('OK');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Base64 Encode",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"value\": \"Hello, World!\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/base64/encode",
+          "host": ["{{baseUrl}}"],
+          "path": ["base64", "encode"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains encoded value', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('encoded');",
+              "    pm.expect(jsonData.encoded).to.be.a('string');",
+              "});",
+              "",
+              "pm.test('Encoded value is correct Base64', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.encoded).to.equal('SGVsbG8sIFdvcmxkIQ==');",
+              "});",
+              "",
+              "pm.test('Encoded value is valid Base64 format', function () {",
+              "    var jsonData = pm.response.json();",
+              "    var base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;",
+              "    pm.expect(jsonData.encoded).to.match(base64Regex);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Base64 Decode",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"value\": \"SGVsbG8sIFdvcmxkIQ==\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/base64/decode",
+          "host": ["{{baseUrl}}"],
+          "path": ["base64", "decode"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains decoded value', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('decoded');",
+              "    pm.expect(jsonData.decoded).to.be.a('string');",
+              "});",
+              "",
+              "pm.test('Decoded value is correct', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.decoded).to.equal('Hello, World!');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Base64 Encode - Plain Text",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "text/plain"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "Test plain text encoding"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/base64/encode",
+          "host": ["{{baseUrl}}"],
+          "path": ["base64", "encode"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains encoded value', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('encoded');",
+              "});",
+              "",
+              "pm.test('Can decode back to original', function () {",
+              "    var jsonData = pm.response.json();",
+              "    var decoded = atob(jsonData.encoded);",
+              "    pm.expect(decoded).to.equal('Test plain text encoding');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Base64 Decode - Invalid Format",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"value\": \"invalid-base64!\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/base64/decode",
+          "host": ["{{baseUrl}}"],
+          "path": ["base64", "decode"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400', function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Error message is correct', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('error');",
+              "    pm.expect(jsonData.error.message).to.equal('Invalid Base64 format');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Basic Auth - Successful Authentication",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Basic dGVzdHVzZXI6dGVzdHBhc3M="
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/basic-auth?user=testuser&password=testpass",
+          "host": ["{{baseUrl}}"],
+          "path": ["basic-auth"],
+          "query": [
+            {
+              "key": "user",
+              "value": "testuser"
+            },
+            {
+              "key": "password",
+              "value": "testpass"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Authentication is successful', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('authenticated', true);",
+              "    pm.expect(jsonData).to.have.property('message', 'Authentication successful');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Basic Auth - Failed Authentication",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Basic d3JvbmdUZXN0Ondyb25nUGFzcw=="
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/basic-auth?user=expected&password=expected",
+          "host": ["{{baseUrl}}"],
+          "path": ["basic-auth"],
+          "query": [
+            {
+              "key": "user",
+              "value": "expected"
+            },
+            {
+              "key": "password",
+              "value": "expected"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 401', function () {",
+              "    pm.response.to.have.status(401);",
+              "});",
+              "",
+              "pm.test('Authentication failed response', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('authenticated', false);",
+              "    pm.expect(jsonData).to.have.property('message', 'Authentication failed');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Basic Auth - Empty Parameters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/basic-auth?user=&password=",
+          "host": ["{{baseUrl}}"],
+          "path": ["basic-auth"],
+          "query": [
+            {
+              "key": "user",
+              "value": ""
+            },
+            {
+              "key": "password",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400', function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Empty parameter error', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('error');",
+              "    pm.expect(jsonData.error).to.have.property('message', 'Missing user or password query parameter');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mirror Route",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"test\": \"data\", \"number\": 123}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/mirror",
+          "host": ["{{baseUrl}}"],
+          "path": ["mirror"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response mirrors request body', function () {",
+              "    var requestBody = JSON.parse(pm.request.body.raw);",
+              "    var responseBody = pm.response.json();",
+              "    pm.expect(responseBody).to.deep.equal(requestBody);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Request Route",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Test-Header",
+            "value": "test-value"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/request?test=param",
+          "host": ["{{baseUrl}}"],
+          "path": ["request"],
+          "query": [
+            {
+              "key": "test",
+              "value": "param"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains request details', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('method', 'GET');",
+              "    pm.expect(jsonData).to.have.property('ip');",
+              "    pm.expect(jsonData).to.have.property('httpVersion');",
+              "    pm.expect(jsonData).to.have.property('protocol');",
+              "    pm.expect(jsonData).to.have.property('host');",
+              "    pm.expect(jsonData).to.have.property('headers');",
+              "    pm.expect(jsonData).to.have.property('query');",
+              "    pm.expect(jsonData).to.have.property('body');",
+              "    pm.expect(jsonData).to.have.property('cookies');",
+              "    pm.expect(jsonData.query).to.have.property('test', 'param');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Status Code - 201",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/status/201",
+          "host": ["{{baseUrl}}"],
+          "path": ["status", "201"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test('Response has no body', function () {",
+              "    pm.expect(pm.response.text()).to.equal('Created');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Status Code - 404",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/status/404",
+          "host": ["{{baseUrl}}"],
+          "path": ["status", "404"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 404', function () {",
+              "    pm.response.to.have.status(404);",
+              "});",
+              "",
+              "pm.test('Response has no body', function () {",
+              "    pm.expect(pm.response.text()).to.equal('Not Found');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Status Code - 500",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/status/500",
+          "host": ["{{baseUrl}}"],
+          "path": ["status", "500"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 500', function () {",
+              "    pm.response.to.have.status(500);",
+              "});",
+              "",
+              "pm.test('Response has no body', function () {",
+              "    pm.expect(pm.response.text()).to.equal('Internal Server Error');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Redirect - Default 302",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/redirect?url=https%3A%2F%2Fexample.com",
+          "host": ["{{baseUrl}}"],
+          "path": ["redirect"],
+          "query": [
+            {
+              "key": "url",
+              "value": "https://example.com"
+            }
+          ]
+        }
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 302', function () {",
+              "    pm.response.to.have.status(302);",
+              "});",
+              "",
+              "pm.test('Location header is set', function () {",
+              "    pm.expect(pm.response.headers.get('Location')).to.equal('https://example.com');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Redirect - 301 Permanent",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/redirect?url=https%3A%2F%2Fexample.com&status=301",
+          "host": ["{{baseUrl}}"],
+          "path": ["redirect"],
+          "query": [
+            {
+              "key": "url",
+              "value": "https://example.com"
+            },
+            {
+              "key": "status",
+              "value": "301"
+            }
+          ]
+        }
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 301', function () {",
+              "    pm.response.to.have.status(301);",
+              "});",
+              "",
+              "pm.test('Location header is set', function () {",
+              "    pm.expect(pm.response.headers.get('Location')).to.equal('https://example.com');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Redirect - Invalid Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/redirect?url=https%3A%2F%2Fexample.com&status=400",
+          "host": ["{{baseUrl}}"],
+          "path": ["redirect"],
+          "query": [
+            {
+              "key": "url",
+              "value": "https://example.com"
+            },
+            {
+              "key": "status",
+              "value": "400"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400', function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Error message is correct', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('error');",
+              "    pm.expect(jsonData.error.message).to.equal('Invalid redirect status code. Supported statuses are 301, 302, 303, 307 and 308');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error - Malformed JSON",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/error/malformed-json",
+          "host": ["{{baseUrl}}"],
+          "path": ["error", "malformed-json"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response is malformed JSON', function () {",
+              "    var responseText = pm.response.text();",
+              "    pm.expect(responseText).to.include('{\"invalid-json\":');",
+              "    pm.expect(function() { JSON.parse(responseText); }).to.throw();",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error - Intentional Error",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/error/error",
+          "host": ["{{baseUrl}}"],
+          "path": ["error", "error"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 500', function () {",
+              "    pm.response.to.have.status(500);",
+              "});",
+              "",
+              "pm.test('Error response structure', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('error');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "UUID Generation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/uuid",
+          "host": ["{{baseUrl}}"],
+          "path": ["uuid"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains UUID', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('uuid');",
+              "    pm.expect(jsonData.uuid).to.be.a('string');",
+              "});",
+              "",
+              "pm.test('UUID is valid format', function () {",
+              "    var jsonData = pm.response.json();",
+              "    var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;",
+              "    pm.expect(jsonData.uuid).to.match(uuidRegex);",
+              "});",
+              "",
+              "pm.test('UUID is version 4', function () {",
+              "    var jsonData = pm.response.json();",
+              "    var parts = jsonData.uuid.split('-');",
+              "    pm.expect(parts[2][0]).to.equal('4');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "UUID Generation - Multiple Requests",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/uuid",
+          "host": ["{{baseUrl}}"],
+          "path": ["uuid"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Multiple requests generate different UUIDs', function () {",
+              "    var jsonData = pm.response.json();",
+              "    var currentUuid = jsonData.uuid;",
+              "    ",
+              "    // Store the first UUID",
+              "    if (!pm.globals.get('firstUuid')) {",
+              "        pm.globals.set('firstUuid', currentUuid);",
+              "    } else {",
+              "        // Compare with the stored UUID",
+              "        var firstUuid = pm.globals.get('firstUuid');",
+              "        pm.expect(currentUuid).to.not.equal(firstUuid);",
+              "        pm.globals.unset('firstUuid'); // Clean up",
+              "    }",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "UUID with Delay",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/uuid?delay=50",
+          "host": ["{{baseUrl}}"],
+          "path": ["uuid"],
+          "query": [
+            {
+              "key": "delay",
+              "value": "50"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": ["pm.globals.set('uuidStartTime', Date.now());"]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains valid UUID', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('uuid');",
+              "    var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;",
+              "    pm.expect(jsonData.uuid).to.match(uuidRegex);",
+              "});",
+              "",
+              "pm.test('Response was delayed', function () {",
+              "    var startTime = pm.globals.get('uuidStartTime');",
+              "    var endTime = Date.now();",
+              "    var duration = endTime - startTime;",
+              "    pm.expect(duration).to.be.at.least(50);",
+              "    pm.globals.unset('uuidStartTime'); // Clean up",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Delay Middleware Test",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/?delay=100",
+          "host": ["{{baseUrl}}"],
+          "path": [""],
+          "query": [
+            {
+              "key": "delay",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": ["pm.globals.set('startTime', Date.now());"]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response was delayed', function () {",
+              "    var startTime = pm.globals.get('startTime');",
+              "    var endTime = Date.now();",
+              "    var duration = endTime - startTime;",
+              "    pm.expect(duration).to.be.at.least(100);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
