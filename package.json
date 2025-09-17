@@ -7,7 +7,8 @@
   "author": "Ryo Hasegawa",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "nodemon"
   },
   "dependencies": {
     "express": "5.1.0"
@@ -15,6 +16,8 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.4.0",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.20.5",
     "typescript": "^5.8.3"
   }
 }
