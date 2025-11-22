@@ -1,8 +1,8 @@
 import express from 'express';
+import { indexRouter } from './routes/index.js';
+
 const app = express();
 
-app.get('/', (_req, res) => {
-  res.send('Hello!');
-});
+app.use('/', indexRouter);
 
 export { app };
