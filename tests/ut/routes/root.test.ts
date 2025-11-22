@@ -1,8 +1,11 @@
+import express from 'express';
 import request from 'supertest';
-import { app } from '../../../src/app.js';
+import { rootRouter } from '../../../src/routes/root.js';
 
-describe('Root endpoint /', () => {
+const app = express();
+app.use('/', rootRouter);
 
+describe('rootRouter', () => {
   const httpMethods = ['get', 'post', 'put', 'delete', 'patch', 'head', 'options'] as const;
 
   describe.each(httpMethods)('%s method', (method) => {
