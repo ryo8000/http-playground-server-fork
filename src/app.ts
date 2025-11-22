@@ -1,8 +1,8 @@
 import express from 'express';
-import { rootRouter } from './routes/root.js';
+import { indexRouter } from './routes/index.js';
 
 const app = express();
 
-app.use('/', rootRouter);
+app.use('/', indexRouter);
 
 export { app };
