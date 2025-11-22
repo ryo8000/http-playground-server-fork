@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { HttpStatusCodes } from '../utils/http.js';
 
-const rootRouter = Router();
+const indexRouter = Router();
 
-rootRouter.all('/', (_req, res) => {
+indexRouter.all('/', (_req, res) => {
   res.sendStatus(HttpStatusCodes.OK);
 });
 
-export { rootRouter };
+export { indexRouter };
