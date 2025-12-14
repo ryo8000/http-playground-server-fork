@@ -9,6 +9,14 @@ Built with **Node.js** and **Express**.
 
 ---
 
+## 📚 API Reference
+
+| Method | Path               | Description                                                          |
+| ------ | ------------------ | -------------------------------------------------------------------- |
+| `ALL`  | `/status/{status}` | Respond with a given HTTP status code (must be between 200 and 599). |
+
+---
+
 ## 🚀 Build and Run the Application
 
 ### Using Yarn
