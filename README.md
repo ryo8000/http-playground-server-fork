@@ -14,6 +14,7 @@ Built with **Node.js** and **Express**.
 | Method | Path               | Description                                                          |
 | ------ | ------------------ | -------------------------------------------------------------------- |
 | `ALL`  | `/status/{status}` | Respond with a given HTTP status code (must be between 200 and 599). |
+| `ALL`  | `/uuid/`           | Generate and return a random UUID (version 4).                       |
 
 ---
 
