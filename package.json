@@ -9,21 +9,31 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src tests",
+    "lint:fix": "eslint src tests --fix",
+    "format": "prettier --write src tests",
+    "format:check": "prettier --check src tests"
   },
   "dependencies": {
     "express": "5.2.1"
   },
   "devDependencies": {
+    "@eslint/js": "9.39.1",
     "@types/express": "5.0.6",
     "@types/jest": "30.0.0",
     "@types/node": "24.10.1",
     "@types/supertest": "6.0.3",
+    "eslint": "9.39.1",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.4",
     "jest": "30.2.0",
     "nodemon": "3.1.11",
     "supertest": "7.1.4",
+    "prettier": "3.7.4",
     "ts-jest": "29.4.6",
     "tsx": "4.21.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.48.1"
   }
 }
