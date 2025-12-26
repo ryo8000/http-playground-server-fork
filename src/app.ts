@@ -5,6 +5,7 @@ import { statusRouter } from './routes/status.js';
 import { uuidRouter } from './routes/uuid.js';
 import { HttpStatusCodes } from './utils/http.js';
 import { environment } from './env.js';
+import { log } from './logger.js';
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use((_req, res) => {
 
 // Error handler
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  console.error('Unhandled error occurred', err);
+  log.error({ err }, 'Unhandled error occurred');
   const isDevelopment = environment.nodeEnv === 'development';
 
   res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
