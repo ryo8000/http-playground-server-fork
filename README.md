@@ -20,6 +20,12 @@ Built with **Node.js** and **Express**.
 | `ALL`  | `/status/{status}`      | Respond with a given HTTP status code (must be between 200 and 599). |
 | `ALL`  | `/uuid`                 | Generate and return a random UUID (version 4).                       |
 
+### Query Parameters
+
+| Name       | Type   | Default | Description                                                 |
+| ---------- | ------ | ------- | ----------------------------------------------------------- |
+| `delay`    | Number | `0`     | Delays the response by the specified value in milliseconds. |
+
 ---
 
 ## 🚀 Build and Run the Application
