@@ -22,6 +22,16 @@ Built with **Node.js** and **Express**.
 
 ---
 
+## ⚙️ Environment Variables
+
+| Name        | Required | Default       | Description                                                      | Notes |
+| ----------- | -------- | ------------- | ---------------------------------------------------------------- | ----- |
+| `NODE_ENV`  | No       | `development` | Sets the environment mode. (`development`, `production`, `test`) |       |
+| `LOG_LEVEL` | No       | `info`        | Sets the logging level. (`debug`, `info`, `warn`, `error`)       |       |
+| `PORT`      | No       | `8000`        | Port number for this application.                                |       |
+
+---
+
 ## 🚀 Build and Run the Application
 
 ### Using Yarn
