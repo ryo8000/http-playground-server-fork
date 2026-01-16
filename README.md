@@ -24,12 +24,18 @@ Built with **Node.js** and **Express**.
 
 ## ⚙️ Environment Variables
 
-| Name        | Required | Default       | Description                                                                  | Notes                                                      |
-| ----------- | -------- | ------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `NODE_ENV`  | No       | `development` | Sets the environment mode. (`development`, `production`, `test`)             |                                                            |
-| `LOG_LEVEL` | No       | `info`        | Sets the logging level. (`trace`, `debug`, `info`, `warn`, `error`, `fatal`) |                                                            |
-| `PORT`      | No       | `8000`        | Port number for this application.                                            | If set to `0`, the OS will assign a random available port. |
+| Name        | Required | Default       | Description                                                                                                |
+| ----------- | -------- | ------------- | ---------------------------------------------------------------------------------------------------------- |
+| `NODE_ENV`  | No       | `development` | Sets the environment mode. (`development`, `production`, `test`)                                           |
+| `LOG_LEVEL` | No       | `info`        | Sets the logging level. (`trace`, `debug`, `info`, `warn`, `error`, `fatal`)                               |
+| `PORT`      | No       | `8000`        | Port number for this application. If set to `0`, the OS will assign a random available port.               |
 
+### Example
+
+To run the application with a specific port and log level, you can set the environment variables like this:
+
+```bash
+PORT=3000 LOG_LEVEL=debug node dist/server.js
 ---
 
 ## 🚀 Build and Run the Application
