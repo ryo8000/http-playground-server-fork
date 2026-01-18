@@ -11,6 +11,10 @@ const server = app.listen(environment.port, () => {
   }
 });
 
+server.headersTimeout = environment.headersTimeout;
+server.requestTimeout = environment.requestTimeout;
+server.keepAliveTimeout = environment.keepAliveTimeout;
+
 server.on('error', (err) => {
   log.error({ err }, 'Server failed to start');
   process.exit(1);
