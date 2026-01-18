@@ -1,5 +1,8 @@
 {
   "watch": ["src"],
   "ext": "ts",
-  "exec": "tsx ./src/server.ts"
+  "exec": "tsx ./src/server.ts",
+  "env": {
+    "LOG_LEVEL": "debug"
+  }
 }
