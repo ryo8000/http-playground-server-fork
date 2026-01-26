@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "express": "5.2.1",
-    "pino": "10.2.0"
+    "pino": "10.3.0"
   },
   "devDependencies": {
     "@types/express": "5.0.6",
