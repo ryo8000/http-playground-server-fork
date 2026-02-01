@@ -11,6 +11,10 @@ import { environment } from './env.js';
 import { log } from './logger.js';
 
 const app = express();
+
+// Disable X-Powered-By header
+app.disable('x-powered-by');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
