@@ -1,6 +1,7 @@
 import express from 'express';
 import { errorRouter } from './routes/error.js';
 import { indexRouter } from './routes/index.js';
+import { mirrorRouter } from './routes/mirror.js';
 import { statusRouter } from './routes/status.js';
 import { uuidRouter } from './routes/uuid.js';
 import { HttpStatusCodes } from './utils/http.js';
@@ -8,9 +9,11 @@ import { environment } from './env.js';
 import { log } from './logger.js';
 
 const app = express();
+app.use(express.json());
 
 app.use('/', indexRouter);
 app.use('/error', errorRouter);
+app.use('/mirror', mirrorRouter);
 app.use('/status', statusRouter);
 app.use('/uuid', uuidRouter);
 
