@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import { errorRouter } from './routes/error.js';
 import { indexRouter } from './routes/index.js';
+import { mirrorRouter } from './routes/mirror.js';
 import { requestRouter } from './routes/request.js';
 import { statusRouter } from './routes/status.js';
 import { uuidRouter } from './routes/uuid.js';
@@ -16,6 +17,7 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 app.use('/error', errorRouter);
+app.use('/mirror', mirrorRouter);
 app.use('/request', requestRouter);
 app.use('/status', statusRouter);
 app.use('/uuid', uuidRouter);
