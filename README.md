@@ -17,6 +17,7 @@ Built with **Node.js** and **Express**.
 | `ALL`  | `/error/network`        | Simulates a network error by closing the connection.                 |
 | `ALL`  | `/error/malformed-json` | Returns malformed JSON response.                                     |
 | `ALL`  | `/error/error`          | Throws an unhandled exception to trigger Express error handler.      |
+| `ALL`  | `/request`              | Return a structured JSON dump of the incoming request.               |
 | `ALL`  | `/status/{status}`      | Respond with a given HTTP status code (must be between 200 and 599). |
 | `ALL`  | `/uuid`                 | Generate and return a random UUID (version 4).                       |
 
