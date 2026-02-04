@@ -64,15 +64,16 @@ base64Router.all('/decode', (req, res) => {
   }
 
   try {
-    const decodedBuffer = Buffer.from(valueToDecode, 'base64');
-
-    // Validate Base64 format
-    if (decodedBuffer.toString('base64') !== valueToDecode) {
+    // Validate Base64 format with a regex for robustness
+    const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+    if (!base64Regex.test(valueToDecode)) {
       res.status(HttpStatusCodes.BAD_REQUEST).json({
         error: { message: 'Invalid Base64 format' },
       });
       return;
     }
+
+    const decodedBuffer = Buffer.from(valueToDecode, 'base64');
 
     const decoded = decodedBuffer.toString('utf8');
     res.status(HttpStatusCodes.OK).json({ decoded });
