@@ -3,13 +3,13 @@ import cookieParser from 'cookie-parser';
 import request from 'supertest';
 import { requestRouter } from '../../../src/routes/request.js';
 
-describe('requestRouter', () => {
-  const app = express();
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
-  app.use(cookieParser());
-  app.use('/request', requestRouter);
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use('/request', requestRouter);
 
+describe('requestRouter', () => {
   const testCookie = 'sessionId=abc123';
   const testHeaders = {
     'content-type': 'application/json',
