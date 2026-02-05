@@ -11,16 +11,17 @@ Built with **Node.js** and **Express**.
 
 ## 📚 API Reference
 
-| Method | Path                    | Description                                                          |
-| ------ | ----------------------- | -------------------------------------------------------------------- |
-| `ALL`  | `/error/timeout`        | Simulates a timeout by never sending a response.                     |
-| `ALL`  | `/error/network`        | Simulates a network error by closing the connection.                 |
-| `ALL`  | `/error/malformed-json` | Returns malformed JSON response.                                     |
-| `ALL`  | `/error/error`          | Throws an unhandled exception to trigger Express error handler.      |
-| `ALL`  | `/mirror`               | Returns the request body as a response.                              |
-| `ALL`  | `/request`              | Return a structured JSON dump of the incoming request.               |
-| `ALL`  | `/status/{status}`      | Respond with a given HTTP status code (must be between 200 and 599). |
-| `ALL`  | `/uuid`                 | Generate and return a random UUID (version 4).                       |
+| Method | Path                    | Description                                                                          |
+| ------ | ----------------------- | ------------------------------------------------------------------------------------ |
+| `ALL`  | `/error/timeout`        | Simulates a timeout by never sending a response.                                     |
+| `ALL`  | `/error/network`        | Simulates a network error by closing the connection.                                 |
+| `ALL`  | `/error/malformed-json` | Returns malformed JSON response.                                                     |
+| `ALL`  | `/error/error`          | Throws an unhandled exception to trigger Express error handler.                      |
+| `ALL`  | `/mirror`               | Returns the request body as a response.                                              |
+| `ALL`  | `/redirect`             | Returns a redirect response based on the `status` and `url` of the query parameters. |
+| `ALL`  | `/request`              | Return a structured JSON dump of the incoming request.                               |
+| `ALL`  | `/status/{status}`      | Respond with a given HTTP status code (must be between 200 and 599).                 |
+| `ALL`  | `/uuid`                 | Generate and return a random UUID (version 4).                                       |
 
 ---
 
