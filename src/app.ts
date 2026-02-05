@@ -1,5 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import { loggerMiddleware } from './middlewares/logger.js';
 import { errorRouter } from './routes/error.js';
 import { indexRouter } from './routes/index.js';
 import { mirrorRouter } from './routes/mirror.js';
@@ -18,6 +19,7 @@ app.disable('x-powered-by');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(loggerMiddleware);
 
 app.use('/', indexRouter);
 app.use('/error', errorRouter);
