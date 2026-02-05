@@ -30,6 +30,7 @@ if (port === undefined || port < MIN_PORT || port > MAX_PORT) {
 }
 
 export const environment = {
+  enableShutdown: process.env['ENABLE_SHUTDOWN'] === 'true',
   logLevel: logLevel as LogLevel,
   nodeEnv: nodeEnv as NodeEnv,
   port,
