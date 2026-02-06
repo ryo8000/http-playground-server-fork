@@ -6,6 +6,9 @@
   "repository": "https://github.com/ryo8000/http-playground-server-fork.git",
   "author": "Ryo Hasegawa",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "nodemon",
