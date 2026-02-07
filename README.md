@@ -26,11 +26,14 @@ Built with **Node.js** and **Express**.
 
 ## ⚙️ Environment Variables
 
-| Name        | Required | Default       | Description                                                                                  |
-| ----------- | -------- | ------------- | -------------------------------------------------------------------------------------------- |
-| `NODE_ENV`  | No       | `development` | Sets the environment mode. (`development`, `production`, `test`)                             |
-| `LOG_LEVEL` | No       | `info`        | Sets the logging level. (`trace`, `debug`, `info`, `warn`, `error`, `fatal`)                 |
-| `PORT`      | No       | `8000`        | Port number for this application. If set to `0`, the OS will assign a random available port. |
+| Name                 | Required | Default       | Description                                                                                  |
+| -------------------- | -------- | ------------- | -------------------------------------------------------------------------------------------- |
+| `NODE_ENV`           | No       | `development` | Sets the environment mode. (`development`, `production`, `test`)                             |
+| `LOG_LEVEL`          | No       | `info`        | Sets the logging level. (`trace`, `debug`, `info`, `warn`, `error`, `fatal`)                 |
+| `PORT`               | No       | `8000`        | Port number for this application. If set to `0`, the OS will assign a random available port. |
+| `KEEP_ALIVE_TIMEOUT` | No       | `5000`        | HTTP keep-alive timeout in milliseconds.                                                     |
+| `HEADERS_TIMEOUT`    | No       | `10000`       | HTTP headers timeout in milliseconds. Must be > `KEEP_ALIVE_TIMEOUT`.                        |
+| `REQUEST_TIMEOUT`    | No       | `30000`       | Request timeout in milliseconds. Must be > `HEADERS_TIMEOUT`.                                |
 
 ## 🚀 Build and Run the Application
 
