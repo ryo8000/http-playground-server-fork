@@ -30,6 +30,11 @@ if (!(ALLOWED_NODE_ENVS as readonly string[]).includes(nodeEnv)) {
   );
 }
 
+const maxDelay = getIntegerEnv('MAX_DELAY', 10_000);
+if (maxDelay < 0) {
+  throw new Error(`Invalid configuration: MAX_DELAY (${maxDelay}ms) must be >= 0.`);
+}
+
 const port = getIntegerEnv('PORT', 8000);
 if (port < MIN_PORT || port > MAX_PORT) {
   throw new Error(
@@ -63,6 +68,7 @@ if (requestTimeout <= headersTimeout) {
 
 export const environment = {
   logLevel: logLevel as LogLevel,
+  maxDelay,
   nodeEnv: nodeEnv as NodeEnv,
   port,
   headersTimeout,

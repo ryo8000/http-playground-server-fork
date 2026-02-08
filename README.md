@@ -22,6 +22,12 @@ Built with **Node.js** and **Express**.
 | `ALL`  | `/status/{status}`      | Respond with a given HTTP status code (must be between 200 and 599). |
 | `ALL`  | `/uuid`                 | Generate and return a random UUID (version 4).                       |
 
+### Query Parameters
+
+| Name       | Type   | Default | Description                                                 |
+| ---------- | ------ | ------- | ----------------------------------------------------------- |
+| `delay`    | Number | `0`     | Delays the response by the specified value in milliseconds. |
+
 ---
 
 ## ⚙️ Environment Variables
@@ -30,6 +36,7 @@ Built with **Node.js** and **Express**.
 | -------------------- | -------- | ------------- | -------------------------------------------------------------------------------------------- |
 | `NODE_ENV`           | No       | `development` | Sets the environment mode. (`development`, `production`, `test`)                             |
 | `LOG_LEVEL`          | No       | `info`        | Sets the logging level. (`trace`, `debug`, `info`, `warn`, `error`, `fatal`)                 |
+| `MAX_DELAY`          | No       | `10000`       | Maximum allowed delay in milliseconds for the `delay` query parameter.                       |
 | `PORT`               | No       | `8000`        | Port number for this application. If set to `0`, the OS will assign a random available port. |
 | `KEEP_ALIVE_TIMEOUT` | No       | `5000`        | HTTP keep-alive timeout in milliseconds.                                                     |
 | `HEADERS_TIMEOUT`    | No       | `10000`       | HTTP headers timeout in milliseconds. Must be > `KEEP_ALIVE_TIMEOUT`.                        |
