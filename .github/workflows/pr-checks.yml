@@ -1,6 +1,5 @@
-# This workflow gates pull requests. It always creates a required check,
-# but only runs the expensive test and Docker image build jobs for changes
-# that can affect the application, tests, or image.
+# This workflow runs checks on all pull requests targeting the main branch,
+# including unit tests with coverage reporting.
 
 name: PR Checks
 
@@ -12,7 +11,7 @@ on:
 jobs:
   test:
     # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-    name: Test & Lint
+    name: Test
     runs-on: ubuntu-latest
     permissions:
       contents: read
