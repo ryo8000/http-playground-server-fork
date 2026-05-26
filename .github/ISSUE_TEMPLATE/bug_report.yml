@@ -13,7 +13,7 @@ body:
       label: Steps to Reproduce
       description: Step-by-step instructions to reproduce the bug.
       placeholder: |
-        1. Send a request `curl -X POST /echo`
+        1. Send a request `curl -X POST /mirror`
         2. ...
     validations:
       required: true
