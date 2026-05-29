@@ -1,5 +1,6 @@
 name: Feature Request
 description: Suggest a new feature or endpoint
+title: "[FEATURE] "
 labels: ["enhancement"]
 body:
   - type: markdown
@@ -22,13 +23,6 @@ body:
       description: Why is this feature needed? What problem does it solve?
     validations:
       required: true
-
-  - type: textarea
-    id: api_design
-    attributes:
-      label: Proposed API Design
-      description: If you have a design in mind, describe the endpoint path, method, and request/response examples.
-      render: shell
 
   - type: textarea
     id: additional
