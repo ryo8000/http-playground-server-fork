@@ -35,10 +35,9 @@ describe('errorRouter', () => {
         expect(response.status).toBe(200);
         expect(response.header['content-type']).toMatch(/application\/json/);
       } else {
-        await expect(request(app)[method]('/error/malformed-json'))
-          .rejects.toMatchObject({
-            message: expect.stringMatching(/Expected double-quoted property name in JSON/),
-          });
+        await expect(request(app)[method]('/error/malformed-json')).rejects.toMatchObject({
+          message: expect.stringMatching(/Expected double-quoted property name in JSON/),
+        });
       }
     });
 

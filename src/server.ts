@@ -11,7 +11,41 @@ const server = app.listen(environment.port, () => {
   }
 });
 
+server.keepAliveTimeout = environment.keepAliveTimeout;
+server.headersTimeout = environment.headersTimeout;
+server.requestTimeout = environment.requestTimeout;
+
 server.on('error', (err) => {
   log.error({ err }, 'Server failed to start');
   process.exit(1);
+});
+
+let isShuttingDown = false;
+
+process.on('SIGTERM', () => {
+  if (isShuttingDown) {
+    log.warn('Shutdown already in progress...');
+    return;
+  }
+  isShuttingDown = true;
+
+  log.info('SIGTERM signal received: closing HTTP server');
+
+  const forceExitTimeout = setTimeout(() => {
+    log.error('Server close timed out, forcing exit');
+    process.exit(1);
+  }, 10_000);
+
+  server.close((err) => {
+    clearTimeout(forceExitTimeout);
+
+    if (err) {
+      log.error({ err }, 'Error during server close');
+      process.exit(1);
+    }
+
+    log.info('HTTP server closed');
+    process.exit(0);
+  });
+  server.closeIdleConnections();
 });
