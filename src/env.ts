@@ -67,6 +67,7 @@ if (requestTimeout <= headersTimeout) {
 }
 
 export const environment = {
+  enableShutdown: process.env['ENABLE_SHUTDOWN'] === 'true',
   logLevel: logLevel as LogLevel,
   maxDelay,
   nodeEnv: nodeEnv as NodeEnv,
