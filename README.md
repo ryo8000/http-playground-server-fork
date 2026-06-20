@@ -19,6 +19,7 @@ Built with **Node.js** and **Express**.
 | `ALL`  | `/error/error`          | Throws an unhandled exception to trigger Express error handler.      |
 | `ALL`  | `/mirror`               | Returns the request body as a response.                              |
 | `ALL`  | `/request`              | Returns a structured JSON dump of the incoming request.              |
+| `ALL`  | `/shutdown`             | Triggers a shutdown of the server. Requires `ENABLE_SHUTDOWN=true`.  |
 | `ALL`  | `/status/{status}`      | Respond with a given HTTP status code (must be between 200 and 599). |
 | `ALL`  | `/uuid`                 | Generate and return a random UUID (version 4).                       |
 
@@ -41,6 +42,7 @@ Built with **Node.js** and **Express**.
 | `KEEP_ALIVE_TIMEOUT` | No       | `5000`        | HTTP keep-alive timeout in milliseconds.                                                     |
 | `HEADERS_TIMEOUT`    | No       | `10000`       | HTTP headers timeout in milliseconds. Must be > `KEEP_ALIVE_TIMEOUT`.                        |
 | `REQUEST_TIMEOUT`    | No       | `30000`       | Request timeout in milliseconds. Must be > `HEADERS_TIMEOUT`.                                |
+| `ENABLE_SHUTDOWN`    | No       | `false`       | Enables the /shutdown endpoint.                                                              |
 
 ## 🚀 Build and Run the Application
 
