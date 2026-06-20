@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import { delayMiddleware } from './middlewares/delay.js';
 import { loggerMiddleware } from './middlewares/logger.js';
+import { base64Router } from './routes/base64.js';
 import { errorRouter } from './routes/error.js';
 import { indexRouter } from './routes/index.js';
 import { mirrorRouter } from './routes/mirror.js';
@@ -18,6 +19,7 @@ const app = express();
 // Disable X-Powered-By header
 app.disable('x-powered-by');
 
+app.use(express.text());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -25,6 +27,7 @@ app.use(loggerMiddleware);
 app.use(delayMiddleware);
 
 app.use('/', indexRouter);
+app.use('/base64', base64Router);
 app.use('/error', errorRouter);
 app.use('/mirror', mirrorRouter);
 app.use('/request', requestRouter);
