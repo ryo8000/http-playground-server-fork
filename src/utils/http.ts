@@ -57,3 +57,5 @@ export const HttpStatusCodes = {
   NOT_EXTENDED: 510,
   NETWORK_AUTHENTICATION_REQUIRED: 511,
 } as const;
+
+export const RedirectStatuses: ReadonlySet<number> = new Set([301, 302, 303, 307, 308]);
