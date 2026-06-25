@@ -1,11 +1,19 @@
 import { toSafeInteger } from './utils/number.js';
 
 const ALLOWED_LOG_LEVELS = ['trace', 'debug', 'info', 'warn', 'error', 'fatal'] as const;
-type LogLevel = (typeof ALLOWED_LOG_LEVELS)[number];
 const ALLOWED_NODE_ENVS = ['development', 'production', 'test'] as const;
-type NodeEnv = (typeof ALLOWED_NODE_ENVS)[number];
 const MIN_PORT = 0;
 const MAX_PORT = 65535;
+
+/**
+ * Returns true if value is one of the allowed literals, narrowing the type accordingly.
+ *
+ * @param value - The string value to check.
+ * @param allowed - The tuple of allowed literal strings.
+ * @returns Whether value is a member of allowed.
+ */
+const isOneOf = <T extends string>(value: string, allowed: readonly T[]): value is T =>
+  (allowed as readonly string[]).includes(value);
 
 const getIntegerEnv = (key: string, defaultValue: number): number => {
   const valueEnv = process.env[key];
@@ -17,14 +25,14 @@ const getIntegerEnv = (key: string, defaultValue: number): number => {
 };
 
 const logLevel = process.env['LOG_LEVEL'] ?? 'info';
-if (!(ALLOWED_LOG_LEVELS as readonly string[]).includes(logLevel)) {
+if (!isOneOf(logLevel, ALLOWED_LOG_LEVELS)) {
   throw new Error(
     `Invalid configuration: LOG_LEVEL (${logLevel}) must be one of: ${ALLOWED_LOG_LEVELS.join(', ')}.`,
   );
 }
 
 const nodeEnv = process.env['NODE_ENV'] ?? 'development';
-if (!(ALLOWED_NODE_ENVS as readonly string[]).includes(nodeEnv)) {
+if (!isOneOf(nodeEnv, ALLOWED_NODE_ENVS)) {
   throw new Error(
     `Invalid configuration: NODE_ENV (${nodeEnv}) must be one of: ${ALLOWED_NODE_ENVS.join(', ')}.`,
   );
@@ -68,9 +76,9 @@ if (requestTimeout <= headersTimeout) {
 
 export const environment = {
   enableShutdown: process.env['ENABLE_SHUTDOWN'] === 'true',
-  logLevel: logLevel as LogLevel,
+  logLevel,
   maxDelay,
-  nodeEnv: nodeEnv as NodeEnv,
+  nodeEnv,
   port,
   headersTimeout,
   keepAliveTimeout,
