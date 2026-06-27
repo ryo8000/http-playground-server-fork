@@ -55,7 +55,9 @@ const headersTimeout = getIntegerEnv('HEADERS_TIMEOUT', 10_000);
 const requestTimeout = getIntegerEnv('REQUEST_TIMEOUT', 30_000);
 
 if (keepAliveTimeout < 0) {
-  throw new Error(`Invalid configuration: KEEP_ALIVE_TIMEOUT (${keepAliveTimeout}ms) must be >= 0.`);
+  throw new Error(
+    `Invalid configuration: KEEP_ALIVE_TIMEOUT (${keepAliveTimeout}ms) must be >= 0.`,
+  );
 }
 if (headersTimeout <= 0) {
   throw new Error(`Invalid configuration: HEADERS_TIMEOUT (${headersTimeout}ms) must be > 0.`);
