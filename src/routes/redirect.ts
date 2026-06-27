@@ -35,9 +35,8 @@ redirectRouter.all('/', (req, res) => {
     return;
   }
 
-  const redirectStatus = statusParam === undefined
-    ? HttpStatusCodes.FOUND
-    : toSafeInteger(statusParam);
+  const redirectStatus =
+    statusParam === undefined ? HttpStatusCodes.FOUND : toSafeInteger(statusParam);
 
   if (redirectStatus === undefined || !RedirectStatuses.has(redirectStatus)) {
     sendInvalidStatusError(res);
