@@ -36,7 +36,7 @@ basicAuthRouter.all('/', (req, res) => {
     return;
   }
 
-  const match = req.headers.authorization?.match(/^basic\s+(.+)$/i);
+  const match = req.headers.authorization?.match(/^basic\s+(\S+.*)$/i);
   if (!match) {
     sendUnauthorized(res, 'Authentication required');
     return;
