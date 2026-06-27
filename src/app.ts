@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import { delayMiddleware } from './middlewares/delay.js';
 import { loggerMiddleware } from './middlewares/logger.js';
 import { base64Router } from './routes/base64.js';
+import { basicAuthRouter } from './routes/basic-auth.js';
 import { errorRouter } from './routes/error.js';
 import { indexRouter } from './routes/index.js';
 import { mirrorRouter } from './routes/mirror.js';
@@ -29,6 +30,7 @@ app.use(delayMiddleware);
 
 app.use('/', indexRouter);
 app.use('/base64', base64Router);
+app.use('/basic-auth', basicAuthRouter);
 app.use('/error', errorRouter);
 app.use('/mirror', mirrorRouter);
 app.use('/redirect', redirectRouter);
