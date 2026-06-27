@@ -31,6 +31,8 @@ Built with **Node.js** and **Express**.
 | Name       | Type   | Default | Description                                                 |
 | ---------- | ------ | ------- | ----------------------------------------------------------- |
 | `delay`    | Number | `0`     | Delays the response by the specified value in milliseconds. |
+| `status`   | Number | `302`   | HTTP status code for `/redirect`.                           |
+| `url`      | String | —       | Target URL for `/redirect`.                                 |
 
 ---
 
