@@ -13,9 +13,8 @@ RUN yarn build
 FROM node:22.15.0-slim AS production
 ENV NODE_ENV=production
 
-WORKDIR /app
-RUN chown node:node /app
 USER node
+WORKDIR /home/node/app
 
 # Install only production dependencies
 COPY --chown=node:node package.json yarn.lock ./
