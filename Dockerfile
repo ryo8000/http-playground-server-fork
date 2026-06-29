@@ -23,6 +23,4 @@ RUN yarn install --frozen-lockfile --production && yarn cache clean
 # Copy compiled files from build stage
 COPY --from=build --chown=node:node /app/dist ./dist
 
-EXPOSE 8000
-
 CMD ["node", "dist/server.js"]
