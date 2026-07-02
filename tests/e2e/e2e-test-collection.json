@@ -751,7 +751,7 @@
               "    pm.response.to.have.status(200);",
               "});",
               "",
-              "pm.globals.set('firstUuid', pm.response.json().uuid);"
+              "pm.collectionVariables.set('firstUuid', pm.response.json().uuid);"
             ]
           }
         }
@@ -773,17 +773,18 @@
           "listen": "test",
           "script": {
             "exec": [
+              "var firstUuid = pm.collectionVariables.get('firstUuid');",
+              "pm.collectionVariables.unset('firstUuid');",
+              "",
               "pm.test('Status code is 200', function () {",
               "    pm.response.to.have.status(200);",
               "});",
               "",
               "pm.test('Multiple requests generate different UUIDs', function () {",
               "    var secondUuid = pm.response.json().uuid;",
-              "    var firstUuid = pm.globals.get('firstUuid');",
+              "    pm.expect(firstUuid, 'firstUuid collection variable not set by First Request').to.be.a('string');",
               "    pm.expect(secondUuid).to.not.equal(firstUuid);",
-              "});",
-              "",
-              "pm.globals.unset('firstUuid');"
+              "});"
             ]
           }
         }
