@@ -1,13 +1,14 @@
 {
   "name": "http-playground-server-fork",
   "version": "0.0.1",
+  "packageManager": "yarn@1.22.22",
   "type": "module",
   "main": "dist/server.js",
   "repository": "https://github.com/ryo8000/http-playground-server-fork.git",
   "author": "Ryo Hasegawa",
   "license": "MIT",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=26.0.0"
   },
   "scripts": {
     "build": "tsc",
