@@ -67,8 +67,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run unit tests
-        run: yarn test
+      - name: Run verify
+        run: yarn verify
 
       - name: Build application
         run: yarn build
